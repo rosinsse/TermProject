@@ -2,45 +2,61 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package termproject;
+package com.mycompany.termcardgame;
 
 /**
  *
- * @author srosi
+ * @author SebastianR
  */
-public abstract class Player {
+import com.mycompany.termcardgame.Card;
+import com.mycompany.termcardgame.Card.Rank;
+import java.util.ArrayList;
 
-    private String name; //the unique name for this player
-
-    /**
-     * A constructor that allows you to set the player's unique ID
-     *
-     * @param name the unique ID to assign to this player.
-     */
-    public Player(String name) {
+public class Player {
+    private String name;
+    private int chips;
+    private ArrayList<Card> hand;
+    
+    public Player(String name, int chips) {
         this.name = name;
+        this.chips = chips;
+        this.hand = new ArrayList<Card>();
     }
-
-    /**
-     * @return the player name
-     */
+    
     public String getName() {
-        return name;
+        return this.name;
     }
-
-    /**
-     * Ensure that the playerID is unique
-     *
-     * @param name the player name to set
-     */
-    public void setName(String name) {
-        this.name = name;
+    
+    public int getChips() {
+        return this.chips;
     }
-
-    /**
-     * The method to be overridden when you subclass the Player class with your specific type of Player and filled in
-     * with logic to play your game.
-     */
-    public abstract void play();
-
+    
+    public void setChips(int chips) {
+        this.chips = chips;
+    }
+    public void addCard(Card card) {
+        hand.add(card);
+    }
+    public ArrayList<Card> getHand() {
+        return hand;
+    }
+    
+    public int getHandValue() {
+        int handValue = 0;
+        int numAces = 0;
+        
+        for (Card card : hand) {
+            if (card.getRank() == Rank.ACE) {
+                numAces++;
+            }
+            handValue += card.getRank().getValue();
+        }
+        
+        while (handValue > 21 && numAces > 0) {
+            handValue -= 10;
+            numAces--;
+        }
+        
+        return handValue;
+    }
 }
