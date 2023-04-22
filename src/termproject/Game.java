@@ -2,60 +2,47 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package termproject;
-
+package com.mycompany.termcardgame;
 /**
  *
- * @author srosi
+ * @author SebastianR
  */
+import com.mycompany.termcardgame.Player;
+import com.mycompany.termcardgame.Player;
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * The class that models your game. You should create a more specific child of this class and instantiate the methods
- * given.
- *
- * @author dancye
- * @author Paul Bonenfant Jan 2020
- */
 public abstract class Game {
 
-    private final String name;//the title of the game
-    private ArrayList<Player> players;// the players of the game
+    private String name;
+    private List<Player> players;
 
-    public Game(String name) {
+    public Game(String name, int startingChips, List<String> playerNames) {
         this.name = name;
-        players = new ArrayList();
+        players = new ArrayList<>();
+        for (String playerName : playerNames) {
+            players.add(new Player(playerName, startingChips));
+        }
     }
 
-    /**
-     * @return the name
-     */
+
+    public abstract void play();
+
+
+    // Getters and setters
     public String getName() {
         return name;
     }
 
-    /**
-     * @return the players of this game
-     */
-    public ArrayList<Player> getPlayers() {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Player> getPlayers() {
         return players;
     }
 
-    /**
-     * @param players the players of this game
-     */
-    public void setPlayers(ArrayList<Player> players) {
+    public void setPlayers(List<Player> players) {
         this.players = players;
     }
-
-    /**
-     * Play the game. This might be one method or many method calls depending on your game.
-     */
-    public abstract void play();
-
-    /**
-     * When the game is over, use this method to declare and display a winning player.
-     */
-    public abstract void declareWinner();
-
-}//end class
+}
